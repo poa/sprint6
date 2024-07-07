@@ -1,7 +1,5 @@
-pytest~=8.2.2
-pytest-dependency
+pytest
 allure-pytest
-selenium~=4.22.0
-Faker~=26.0.0
-
-Unidecode~=1.3.8
+selenium
+Faker
+Unidecode

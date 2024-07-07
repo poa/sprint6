@@ -14,6 +14,10 @@ class L:
     # fmt: off
     HEADER_ORDER_BUTTON = (By.XPATH, "//div[starts-with(@class,'Header_Header')]//button[text()='Заказать']")
     BOTTOM_ORDER_BUTTON = (By.XPATH, "//div[starts-with(@class,'Home_FinishButton')]//button[text()='Заказать']")
+
+    NAVI_LOGO           = (By.XPATH, "//img[@alt='Scooter']")
+    NAVI_YANDEX         = (By.XPATH, "//img[@alt='Yandex']")
+
     # fmt: on
 
 
@@ -38,7 +42,8 @@ class BasePage:
 
     def find_present_elements(self, locator, timeout=TIMEOUT):
         elements = WebDriverWait(self.driver, timeout).until(
-            EC.presence_of_all_elements_located(locator), message=f"Not found: {locator}"
+            EC.presence_of_all_elements_located(locator),
+            message=f"Not found: {locator}"
         )
         return elements
 

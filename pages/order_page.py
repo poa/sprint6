@@ -8,15 +8,6 @@ import pages.base_page
 from pages.base_page import BasePage
 
 
-class TD:
-    """TestData class
-
-    Contains data used for testing for order page
-    """
-
-    ORDER_ACCEPTED = "Заказ оформлен"
-
-
 class L(pages.base_page.L):
     """Locators class
 
@@ -48,7 +39,7 @@ class L(pages.base_page.L):
     CONFIRM_BUTTON      = (By.XPATH, "//div[starts-with(@class,'Order_Buttons')]//button[text()='Да']")
 
     # success page
-    ORDER_ACCEPTED      = (By.XPATH, f"//div[starts-with(@class,'Order_ModalHeader') and text()='{TD.ORDER_ACCEPTED}']")
+    ORDER_ACCEPTED      = (By.XPATH, f"//div[starts-with(@class,'Order_ModalHeader') and text()='Заказ оформлен']")
     STATUS_BUTTON       = (By.XPATH, "//div[starts-with(@class,'Order_NextButton')]//button")
     # fmt: on
 
@@ -56,7 +47,7 @@ class L(pages.base_page.L):
 class OrderPage(BasePage):
     PAGE_PATH = "/order"
 
-    def __init__(self, driver):
-        url = self.APP_URL + BasePage.PAGE_PATH
+    def __init__(self, driver, start_from_home=False):
+        url = self.APP_URL + (BasePage.PAGE_PATH if start_from_home else self.PAGE_PATH)
         BasePage.__init__(self, driver, url=url)
         self.url = self.APP_URL + self.PAGE_PATH

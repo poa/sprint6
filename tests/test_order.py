@@ -1,6 +1,11 @@
-import pytest
+import time
 
-from pages.order_page import OrderPage, TD, L
+import pytest
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+
+from pages.home_page import HomePage
+from pages.order_page import OrderPage, L
 from tools import DataGenerator
 
 
@@ -21,7 +26,7 @@ class TestOrder:
         ],
     )
     def test_order_successfully_created(self, driver, order_button, metro_station, color, lease):
-        page = OrderPage(driver)
+        page = OrderPage(driver, start_from_home=True)
         data = DataGenerator()
         page.click_element(order_button)
         # page one
@@ -41,9 +46,28 @@ class TestOrder:
         page.click_element(color)
         page.fill_text_input(L.COMMENT_INPUT, data.comment)
         page.click_element(L.MAKE_ORDER_BUTTON)
+
+        # confirm page
         page.click_element(L.CONFIRM_BUTTON)
 
-
-        # assert page.find_visible_element(L.ORDER_ACCEPTED).text.startswith(TD.ORDER_ACCEPTED)
         assert page.is_displayed(L.ORDER_ACCEPTED) is True
 
+    def test_navigation_order_to_home(self, driver):
+        page = OrderPage(driver)
+        page.click_element(L.NAVI_LOGO)
+
+        assert driver.current_url == page.APP_URL + HomePage.PAGE_PATH
+
+    def test_navigation_yandex_to_dzen(self, driver):
+        page = OrderPage(driver)
+        page.click_element(L.NAVI_YANDEX)
+        WebDriverWait(driver, page.TIMEOUT).until(EC.number_of_windows_to_be(2))
+        current_window = driver.current_window_handle
+        windows = driver.window_handles
+        for w in windows:
+            if w != current_window:
+                driver.switch_to.window(w)
+                break
+            time.sleep(3)
+
+        assert driver.current_url.startswith("https://dzen.ru/")

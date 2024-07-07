@@ -79,4 +79,5 @@ class HomePage(BasePage):
         return answer
 
     def click_faq_element(self, faq_element: WebElement):
+        self.scroll_to_element(faq_element)
         self.click_element(faq_element.find_element(*L.FAQ_ELEMENT_BUTTON))
