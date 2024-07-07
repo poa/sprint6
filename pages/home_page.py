@@ -4,24 +4,6 @@ from selenium.webdriver.remote.webelement import WebElement
 from pages.base_page import BasePage
 
 
-class L:
-    """Locators class
-
-    Contains locators for web elements
-    """
-
-    FAQ_LIST = (
-        By.XPATH,
-        "//div[starts-with(@class, 'Home_FAQ')]//div[@class='accordion__item']",
-    )
-    FAQ_ELEMENT_BY_QUESTION = (
-        By.XPATH,
-        "//div[starts-with(@class, 'Home_FAQ')]//div[@class='accordion__item' and .//div[text()='%s']]",
-    )
-    FAQ_ELEMENT_ANSWER = (By.XPATH, ".//div[@class='accordion__panel']")
-    FAQ_ELEMENT_BUTTON = (By.XPATH, ".//*[@class='accordion__button']")
-
-
 class TD:
     """TestData class
 
@@ -58,8 +40,25 @@ class TD:
     # fmt: on
 
 
-class HomePage(BasePage):
+class L:
+    """Locators class
 
+    Contains locators for web elements
+    """
+
+    FAQ_LIST = (
+        By.XPATH,
+        "//div[starts-with(@class, 'Home_FAQ')]//div[@class='accordion__item']",
+    )
+    FAQ_ELEMENT_BY_QUESTION = (
+        By.XPATH,
+        "//div[starts-with(@class, 'Home_FAQ')]//div[@class='accordion__item' and .//div[text()='%s']]",
+    )
+    FAQ_ELEMENT_ANSWER = (By.XPATH, ".//div[@class='accordion__panel']")
+    FAQ_ELEMENT_BUTTON = (By.XPATH, ".//*[@class='accordion__button']")
+
+
+class HomePage(BasePage):
     def __init__(self, driver):
         BasePage.__init__(self, driver)
 
@@ -79,6 +78,5 @@ class HomePage(BasePage):
         answer = faq_element.find_element(*L.FAQ_ELEMENT_ANSWER)
         return answer
 
-    @staticmethod
-    def click_faq_element(faq_element: WebElement):
-        faq_element.find_element(*L.FAQ_ELEMENT_BUTTON).click()
+    def click_faq_element(self, faq_element: WebElement):
+        self.click_element(faq_element.find_element(*L.FAQ_ELEMENT_BUTTON))
