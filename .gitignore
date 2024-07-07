@@ -1,8 +1,8 @@
 ### Python template
 
 # custom
-!allure_results/
-allure_results/*
+!allure-results/
+allure-results/*
 !.gitkeep
 
 

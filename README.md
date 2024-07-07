@@ -1,6 +1,6 @@
-# Sprint 5. Final project
+# Sprint 6. Final project
 
-* Проект содержит автотесты на базе `pytest` и `selenium` для сервиса [Stellar Burgers](https://stellarburgers.nomoreparties.site/)
+* Проект содержит автотесты на базе `pytest` и `selenium` для сервиса [Yandex Scooter]()
 
 * Установить зависимости 
 
