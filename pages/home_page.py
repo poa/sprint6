@@ -58,13 +58,10 @@ class TD:
     # fmt: on
 
 
-class StartPage(BasePage):
-    PAGE_PATH = "/"
+class HomePage(BasePage):
 
     def __init__(self, driver):
-        self.url = self.APP_URL + self.PAGE_PATH
-
-        BasePage.__init__(self, driver, url=self.url)
+        BasePage.__init__(self, driver)
 
     def get_faq_elements(self):
         faq_elements = self.find_present_elements(L.FAQ_LIST)
