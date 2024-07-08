@@ -1,13 +1,14 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
+import pages.base_page
 from pages.base_page import BasePage
 
 
 class TD:
     """TestData class
 
-    Contains data used for testing
+    Contains data used for testing home page
     """
 
     # fmt: off
@@ -40,27 +41,28 @@ class TD:
     # fmt: on
 
 
-class L:
+class L(pages.base_page.L):
     """Locators class
 
     Contains locators for web elements
     """
 
-    FAQ_LIST = (
-        By.XPATH,
-        "//div[starts-with(@class, 'Home_FAQ')]//div[@class='accordion__item']",
-    )
-    FAQ_ELEMENT_BY_QUESTION = (
-        By.XPATH,
-        "//div[starts-with(@class, 'Home_FAQ')]//div[@class='accordion__item' and .//div[text()='%s']]",
-    )
+    # fmt: off
+    HOME_ORDER_BUTTON = (By.XPATH, "//div[starts-with(@class,'Home_FinishButton')]//button[text()='Заказать']")
+
+    FAQ_LIST = (By.XPATH, "//div[starts-with(@class, 'Home_FAQ')]//div[@class='accordion__item']")
+    FAQ_ELEMENT_BY_QUESTION = (By.XPATH, "//div[starts-with(@class, 'Home_FAQ')]//div[@class='accordion__item' and .//div[text()='%s']]")
     FAQ_ELEMENT_ANSWER = (By.XPATH, ".//div[@class='accordion__panel']")
     FAQ_ELEMENT_BUTTON = (By.XPATH, ".//*[@class='accordion__button']")
+    # fmt: on
 
 
 class HomePage(BasePage):
-    def __init__(self, driver):
-        BasePage.__init__(self, driver)
+    PAGE_PATH = "/"
+
+    def __init__(self, driver, keep_url=False):
+        self.url = self.APP_URL + self.PAGE_PATH
+        BasePage.__init__(self, driver, url=self.url, keep_url=keep_url)
 
     def get_faq_elements(self):
         faq_elements = self.find_present_elements(L.FAQ_LIST)
@@ -81,3 +83,6 @@ class HomePage(BasePage):
     def click_faq_element(self, faq_element: WebElement):
         self.scroll_to_element(faq_element)
         self.click_element(faq_element.find_element(*L.FAQ_ELEMENT_BUTTON))
+
+    def click_home_order_button(self):
+        self.click_element(L.HOME_ORDER_BUTTON)
