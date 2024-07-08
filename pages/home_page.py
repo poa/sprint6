@@ -48,12 +48,12 @@ class L(pages.base_page.L):
     """
 
     # fmt: off
-    HOME_ORDER_BUTTON = (By.XPATH, "//div[starts-with(@class,'Home_FinishButton')]//button[text()='Заказать']")
+    HOME_ORDER_BUTTON       = (By.XPATH, "//div[starts-with(@class,'Home_FinishButton')]//button[text()='Заказать']")
 
-    FAQ_LIST = (By.XPATH, "//div[starts-with(@class, 'Home_FAQ')]//div[@class='accordion__item']")
+    FAQ_LIST                = (By.XPATH, "//div[starts-with(@class, 'Home_FAQ')]//div[@class='accordion__item']")
     FAQ_ELEMENT_BY_QUESTION = (By.XPATH, "//div[starts-with(@class, 'Home_FAQ')]//div[@class='accordion__item' and .//div[text()='%s']]")
-    FAQ_ELEMENT_ANSWER = (By.XPATH, ".//div[@class='accordion__panel']")
-    FAQ_ELEMENT_BUTTON = (By.XPATH, ".//*[@class='accordion__button']")
+    FAQ_ELEMENT_ANSWER      = (By.XPATH, ".//div[@class='accordion__panel']")
+    FAQ_ELEMENT_BUTTON      = (By.XPATH, ".//*[@class='accordion__button']")
     # fmt: on
 
 

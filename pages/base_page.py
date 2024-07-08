@@ -10,8 +10,9 @@ class TD:
 
     Contains data used for testing base page
     """
-    
+
     YANDEX_LOGO_DST = "https://dzen.ru/"
+
 
 class L:
     """Locators class
@@ -22,7 +23,7 @@ class L:
     # fmt: off
     HEADER_ORDER_BUTTON = (By.XPATH, "//div[starts-with(@class,'Header_Header')]//button[text()='Заказать']")
 
-    SCOOTER_LOGO           = (By.XPATH, "//img[@alt='Scooter']")
+    SCOOTER_LOGO        = (By.XPATH, "//img[@alt='Scooter']")
     YANDEX_LOGO         = (By.XPATH, "//img[@alt='Yandex']")
 
     # fmt: on
