@@ -1,6 +1,6 @@
 # Sprint 6. Final project
 
-* Проект содержит автотесты на базе `pytest` и `selenium` для сервиса [Yandex Scooter]()
+* Проект содержит автотесты на базе `pytest` и `selenium` для сервиса [Yandex Scooter](https://qa-scooter.praktikum-services.ru/)
 
 * Установить зависимости 
 
