@@ -1,6 +1,6 @@
-from typing import Tuple
-
+from datetime import datetime, timedelta
 from faker import Faker
+from typing import Tuple
 
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
@@ -53,13 +53,21 @@ class PageMethods:
         WebDriverWait(driver, timeout).until(EC.visibility_of(element))
 
     @staticmethod
+    def scroll_to_clickable_element(driver, target: WebElement | Tuple[str, str], timeout=TIMEOUT):
+        if isinstance(target, Tuple):
+            element = PageMethods.find_present_element(driver, target, timeout)
+        else:
+            element = target
+        driver.execute_script("arguments[0].scrollIntoView(false);", element)
+        WebDriverWait(driver, timeout).until(EC.element_to_be_clickable(element))
+
+    @staticmethod
     def click_element(driver, target: WebElement | Tuple[str, str], timeout=TIMEOUT):
         if isinstance(target, Tuple):
             element = PageMethods.find_present_element(driver, target, timeout)
         else:
             element = target
-        PageMethods.scroll_to_element(driver, element, timeout)
-        WebDriverWait(driver, timeout).until(EC.element_to_be_clickable(element))
+        PageMethods.scroll_to_clickable_element(driver, element, timeout)
         element.click()
 
     @staticmethod
@@ -74,7 +82,7 @@ class PageMethods:
         return element.is_displayed()
 
     @staticmethod
-    def switch_to_next_window(driver, timeout=TIMEOUT):
+    def switch_to_next_window(driver):
         current_window = driver.current_window_handle
         windows = driver.window_handles
         for w in windows:

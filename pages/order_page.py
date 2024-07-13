@@ -1,7 +1,8 @@
+import allure
 from selenium.webdriver.common.by import By
 
-from data import TestData as TD
 from pages.base_page import BasePage
+from tools import PageMethods as PM
 
 
 class Locators:
@@ -45,3 +46,37 @@ class OrderPage(BasePage, Locators):
 
     def __init__(self, driver):
         BasePage.__init__(self, driver)
+
+    @allure.step("Fill first page: person data")
+    def fill_first_order_page(self, first_name, last_name, address, phone, metro_station):
+        PM.fill_text_input(self.driver, self.FIRST_NAME_INPUT, first_name)
+        PM.fill_text_input(self.driver, self.LAST_NAME_INPUT, last_name)
+        PM.fill_text_input(self.driver, self.ADDRESS_INPUT, address)
+        PM.fill_text_input(self.driver, self.PHONE_INPUT, phone)
+        PM.click_element(self.driver, self.METRO_INPUT)
+        PM.click_element(self.driver, metro_station)
+
+    @allure.step("Click Next button on first order page")
+    def click_next_button(self):
+        PM.click_element(self.driver, self.NEXT_BUTTON)
+
+    @allure.step("Fill first two: scooter data")
+    def fill_second_order_page(self, date, lease, color, comment):
+        PM.fill_text_input(self.driver, self.START_DATE, date)
+        PM.click_element(self.driver, self.START_DATE_SELECT)
+        PM.click_element(self.driver, self.LEASE)
+        PM.click_element(self.driver, lease)
+        PM.click_element(self.driver, color)
+        PM.fill_text_input(self.driver, self.COMMENT_INPUT, comment)
+
+    @allure.step("Click Make order button on second order page")
+    def click_maker_order_button(self):
+        PM.click_element(self.driver, self.MAKE_ORDER_BUTTON)
+
+    @allure.step("Click Confirm button on last order page")
+    def click_confirm_button(self):
+        PM.click_element(self.driver, self.CONFIRM_BUTTON)
+
+    @allure.step("Check order acceptance status")
+    def check_order_acceptance(self):
+        return PM.is_displayed(self.driver, self.ORDER_ACCEPTED)

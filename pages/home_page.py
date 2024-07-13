@@ -1,6 +1,5 @@
 import allure
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webelement import WebElement
 
 from pages.base_page import BasePage
 from tools import PageMethods as PM
@@ -38,16 +37,24 @@ class HomePage(BasePage, Locators):
         )
         return faq_element
 
-    @allure.step("Click to FAQ element")
-    def click_faq_element(self, faq_element):
-        PM.scroll_to_element(faq_element)
+    @allure.step("Click on FAQ element")
+    def click_question(self, question):
+        faq_element = self.get_faq_element_by_question(question)
+        PM.scroll_to_element(self.driver, faq_element)
         PM.click_element(self.driver, faq_element.find_element(*self.FAQ_ELEMENT_BUTTON))
 
-    @allure.step("Get FAQ element answer text")
-    def get_faq_answer(self, faq_element):
+    @allure.step("Check answer is correct")
+    def check_answer(self, question, answer):
+        faq_element = self.get_faq_element_by_question(question)
         answer_element = faq_element.find_element(*self.FAQ_ELEMENT_ANSWER)
-        return answer_element.text
+        return answer_element.text == answer
 
     @allure.step("Click Order button on Home page")
-    def click_order_button(self):
-        PM.click_element(self.driver, self.ORDER_BUTTON)
+    def click_order_button(self, button=None):
+        if button is None:
+            button = self.ORDER_BUTTON
+
+        if button == self.ORDER_BUTTON:
+            PM.click_element(self.driver, self.ORDER_BUTTON)
+        elif button == self.Header.ORDER_BUTTON:
+            self.Header.click_order_button()
