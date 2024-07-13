@@ -1,10 +1,10 @@
 from selenium.webdriver.common.by import By
 
-import pages.base_page
+from data import TestData as TD
 from pages.base_page import BasePage
 
 
-class L(pages.base_page.L):
+class Locators:
     """Locators class
 
     Contains locators for web elements for order page
@@ -40,9 +40,8 @@ class L(pages.base_page.L):
     # fmt: on
 
 
-class OrderPage(BasePage):
+class OrderPage(BasePage, Locators):
     PAGE_PATH = "/order"
 
-    def __init__(self, driver, keep_url=False):
-        self.url = self.APP_URL + self.PAGE_PATH
-        BasePage.__init__(self, driver, url=self.url, keep_url=keep_url)
+    def __init__(self, driver):
+        BasePage.__init__(self, driver)
