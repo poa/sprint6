@@ -29,7 +29,6 @@ class HomePage(BasePage, Locators):
     def __init__(self, driver):
         BasePage.__init__(self, driver)
 
-    @allure.step("Get FAQ element by {question}")
     def get_faq_element_by_question(self, question):
         faq_element = PM.find_present_element(
             self.driver,
