@@ -1,6 +1,0 @@
-
-BP:  /, https://qa-scooter.praktikum-services.ru/
-
-HP:  /, https://qa-scooter.praktikum-services.ru/
-
-OP:  /order, https://qa-scooter.praktikum-services.ru/order
