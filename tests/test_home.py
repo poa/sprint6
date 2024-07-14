@@ -8,7 +8,6 @@ from pages.home_page import HomePage
 
 @allure.suite(f"Test home page FAQ section")
 class TestHome:
-    @allure.title("Testing FAQ section")
     @pytest.mark.parametrize(
         "question, answer",
         [
@@ -17,6 +16,7 @@ class TestHome:
         ],
     )
     def test_faq_all_elements_are_correct(self, driver, question, answer) -> None:
+        allure.dynamic.title(f"Question: {question}")
         page = HomePage(driver)
 
         page.open_page()

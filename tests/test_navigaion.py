@@ -16,9 +16,10 @@ class TestNavigation:
         [
             pytest.param(HPLoc.ORDER_BUTTON, id="Home page order button"),
             pytest.param(HeaderLoc.ORDER_BUTTON, id="Header order button"),
-        ]
+        ],
     )
     def test_navigation_home_to_order_with_order_button(self, driver, order_button):
+        allure.dynamic.title(f"Open order page from home with {order_button}")
         page = HomePage(driver)
         page.open_page()
         page.click_order_button(order_button)

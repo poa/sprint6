@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from faker import Faker
+from random import choice
 from typing import Tuple
 
 from selenium.webdriver.remote.webelement import WebElement
@@ -7,6 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 from data import Constants as C
+from data import TestData as TD
 
 
 class PageMethods:
@@ -103,14 +105,20 @@ class DataGenerator:
         self.phone = ""
         self.comment = ""
         self.date = ""
+        self.metro_station = ""
+        self.lease_period = ""
+        self.scooter_color = ""
 
         self.new_address()
-        self.new_name()
         self.new_email()
+        self.new_name()
         self.new_password()
         self.new_phone()
         self.new_comment()
         self.new_date()
+        self.new_metro_station()
+        self.new_lease_period()
+        self.new_scooter_color()
 
     def new_address(self):
         self.address = self.fake.street_address().replace("/", "")
@@ -143,3 +151,15 @@ class DataGenerator:
         end_date = start_date + timedelta(days=7)
         self.date = self.fake.date_between(start_date, end_date).__str__()
         return self.date
+
+    def new_metro_station(self):
+        self.metro_station = choice(TD.metro_stations)
+        return self.metro_station
+
+    def new_lease_period(self):
+        self.lease_period = choice(TD.lease_periods)
+        return self.lease_period
+
+    def new_scooter_color(self):
+        self.scooter_color = choice(TD.scooter_colors)
+        return self.scooter_color

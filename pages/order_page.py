@@ -18,18 +18,15 @@ class Locators:
     ADDRESS_INPUT       = (By.XPATH, "//input[starts-with(@placeholder,'* Адрес')]")
     METRO_INPUT         = (By.XPATH, "//input[starts-with(@placeholder,'* Станция')]")
     PHONE_INPUT         = (By.XPATH, "//input[starts-with(@placeholder,'* Телефон')]")
-    METRO_BUTTON_1      = (By.XPATH, "//button[starts-with(@class,'Order_SelectOption') and @value='1']")
-    METRO_BUTTON_9      = (By.XPATH, "//button[starts-with(@class,'Order_SelectOption') and @value='9']")
+    METRO_ITEM          = (By.XPATH, "//button[starts-with(@class,'Order_SelectOption')]//div[text()='%s']/..")
     NEXT_BUTTON         = (By.XPATH, "//div[starts-with(@class,'Order_NextButton')]//button")
 
     # second order page
     START_DATE          = (By.XPATH, "//input[starts-with(@placeholder,'* Когда')]")
     START_DATE_SELECT   = (By.XPATH, "//div[contains(@class,'react-datepicker__day--selected')]")
     LEASE               = (By.XPATH, "//div[@class='Dropdown-control']")
-    LEASE_1DAY          = (By.XPATH, "//div[@class='Dropdown-option' and text()='сутки']")
-    LEASE_7DAY          = (By.XPATH, "//div[@class='Dropdown-option' and text()='семеро суток']")
-    COLOR_BLACK         = (By.ID, "black")
-    COLOR_GRAY          = (By.ID, "grey")
+    LEASE_ITEM          = (By.XPATH, "//div[@class='Dropdown-option' and text()='%s']")
+    SCOOTER_COLOR       = (By.ID, "%s")
     COMMENT_INPUT       = (By.XPATH, "//input[starts-with(@placeholder,'Комментарий')]")
 
     MAKE_ORDER_BUTTON   = (By.XPATH, "//div[starts-with(@class,'Order_Buttons')]//button[text()='Заказать']")
@@ -54,7 +51,7 @@ class OrderPage(BasePage, Locators):
         PM.fill_text_input(self.driver, self.ADDRESS_INPUT, address)
         PM.fill_text_input(self.driver, self.PHONE_INPUT, phone)
         PM.click_element(self.driver, self.METRO_INPUT)
-        PM.click_element(self.driver, metro_station)
+        PM.click_element(self.driver, (self.METRO_ITEM[0], self.METRO_ITEM[1] % metro_station))
 
     @allure.step("Click Next button on first order page")
     def click_next_button(self):
@@ -65,8 +62,8 @@ class OrderPage(BasePage, Locators):
         PM.fill_text_input(self.driver, self.START_DATE, date)
         PM.click_element(self.driver, self.START_DATE_SELECT)
         PM.click_element(self.driver, self.LEASE)
-        PM.click_element(self.driver, lease)
-        PM.click_element(self.driver, color)
+        PM.click_element(self.driver, (self.LEASE_ITEM[0], self.LEASE_ITEM[1] % lease))
+        PM.click_element(self.driver, (self.SCOOTER_COLOR[0], self.SCOOTER_COLOR[1] % color))
         PM.fill_text_input(self.driver, self.COMMENT_INPUT, comment)
 
     @allure.step("Click Make order button on second order page")
