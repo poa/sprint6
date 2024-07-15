@@ -1,5 +1,5 @@
 pytest
-pytest-dependency
 allure-pytest
 selenium
 Faker
+Unidecode
